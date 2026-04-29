@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .main-content {
+      flex: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      width: 100%;
+      animation: fadeInUp 0.5s ease both;
+      background: 
+        radial-gradient(circle at 30% 70%, rgba(217,79,43,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(184,125,47,0.06) 0%, transparent 50%);
+    }
+    .order-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 450px;
+      max-width: 90vw;
+      max-height: 85vh;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      overflow-y: auto;
+    }
+    .order-panel.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .panel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .panel-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .order-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .order-panel-header h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      margin: 0;
+    }
+    .panel-close {
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: var(--text);
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+    .panel-close:hover {
+      color: var(--accent);
+    }
+    .order-panel-content {
+      padding: 20px;
+    }
+    .panel-order-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background: var(--surface2);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+    }
+    .panel-order-image {
+      width: 50px;
+      height: 50px;
+      background: var(--surface);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .panel-order-info {
+      flex: 1;
+    }
+    .panel-order-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .panel-order-qty {
+      color: var(--text2);
+      font-size: 0.85rem;
+    }
+    .panel-order-price {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .panel-info-section {
+      margin-bottom: 20px;
+    }
+    .panel-info-section h3 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .panel-info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .panel-info-row span:first-child {
+      color: var(--text2);
+    }
+    .panel-total {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: right;
+      padding: 15px 0;
+      border-top: 2px solid var(--border);
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back
+    </a>
+    <div class="header-spacer"></div>
+    <a href="index.html" class="logo">Shop<em>ify</em></a>
+    <div class="header-spacer"></div>
+    <a href="track-order.html" class="icon-btn" title="Track Order" aria-label="Track Order">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+        <line x1="12" y1="22.08" x2="12" y2="12"/>
+      </svg>
+    </a>
+  </div>
+</header>
+
+
+<main class="main-content">
+  <div class="page-header">
+    <h1>My Account</h1>
+    <p>Manage your profile, orders, and preferences</p>
+  </div>
+
+  
+  <div class="order-panel" id="orderPanel">
+    <div class="order-panel-header">
+      <h2>Order Details</h2>
+      <button class="panel-close" onclick="closeOrderPanel()">×</button>
+    </div>
+    <div class="order-panel-content" id="orderPanelContent"></div>
+  </div>
+  <div class="panel-overlay" id="panelOverlay" onclick="closeOrderPanel()"></div>
+
+  <div class="account-sections">
+   
+    <div class="account-card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon">👤</div>
+          <span class="card-title">Profile Information</span>
+        </div>
+        <div class="card-toggle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-body open">
+        <div class="profile-info">
+          <div class="profile-avatar" id="profileAvatar">👤</div>
+          <div class="profile-details">
+            <h3 id="profileName">Your Name</h3>
+            <p id="profileEmail">your@email.com</p>
+          </div>
+        </div>
+        <form class="profile-form" onsubmit="saveProfile(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="firstName" placeholder="First Name" />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="lastName" placeholder="Last Name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="profileEmailInput" placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" placeholder="+63XXXXXXXXX" />
+          </div>
+          <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+      </div>
+    </div>
+
+    
+    <div class="account-card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon">📦</div>
+          <span class="card-title">Order History</span>
+        </div>
+        <div class="card-toggle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="order-list" id="orderList">
+         
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="account-card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon">⚙️</div>
+          <span class="card-title">Settings</span>
+        </div>
+        <div class="card-toggle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="settings-list" id="settingsList">
+         
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="logout-section">
+      <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
+    </div>
+  </div>
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Shop<em>ify</em></a>
+      <p class="footer-tagline">Your premium shopping destination for quality products at affordable prices.</p>
+      <div class="footer-social">
+       <p>
+  Leah Pensader:<br>
+  <a href="https://www.facebook.com/leah.pensader" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/leiipen_onth3wall" target="_blank" rel="noopener noreferrer">Instagram</a>
+       </p>
+
+        <p>
+  Nico Jay Beltran:<br>
+  <a href="https://www.facebook.com/nicojay.beltran" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/njaykiee" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+
+        <p>
+  John Reyven Brosula:<br>
+  <a href="https://www.facebook.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="index.html">All Products</a>
+        <a href="index.html">New Arrivals</a>
+        <a href="index.html">Best Sellers</a>
+        <a href="index.html">Sale</a>
+      </div>
+
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Shopify. All rights reserved.</p>
+    <p>Created by: Reyven, Leah, Nico</p>
+    <p>Created in: Visual Studio Powered by: GitHub</p>
+  </div>
+</footer>
+
+
+<script src="data.js"></script>
+<script>
+  
+  if (!ShopNowDB.hasUser()) {
+    window.location.href = 'login.html';
+  }
+</script>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>

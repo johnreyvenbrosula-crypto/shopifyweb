@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      animation: fadeInUp 0.5s ease both;
+      background: 
+        radial-gradient(circle at 30% 70%, rgba(217,79,43,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(184,125,47,0.06) 0%, transparent 50%);
+    }
+    .welcome-card {
+      text-align: center;
+      max-width: 400px;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+      padding: 48px 40px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 
+        0 20px 60px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+    .welcome-card h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .welcome-card p {
+      color: var(--text2);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+    .welcome-options {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .welcome-btn {
+      padding: 20px 32px;
+      border-radius: 16px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      text-decoration: none;
+      display: block;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .welcome-btn.primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+    }
+    .welcome-btn.primary:hover {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, #8B2D15 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(217,79,43,0.3);
+    }
+    .welcome-btn.secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+    .welcome-btn.secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .login-form-section {
+      display: none;
+    }
+    .login-form-section.active {
+      display: block;
+    }
+    .back-choice {
+      margin-top: 24px;
+      color: var(--text2);
+      cursor: pointer;
+    }
+    .back-choice:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+
+<div id="splash" class="splash-screen">
+  <div class="splash-ring"></div>
+  <div class="splash-content">
+    <div class="splash-logo">
+      <span class="splash-icon">🛍️</span>
+      <h1 class="splash-title">Shop<em>ify</em></h1>
+    </div>
+    <div class="splash-loader">
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+    </div>
+    <p class="splash-tagline">Your Page is Loading Please Wait</p>
+  </div>
+  <div class="splash-particles">
+    <span class="particle">✨</span>
+    <span class="particle">🛍️</span>
+    <span class="particle">🎁</span>
+    <span class="particle">💫</span>
+    <span class="particle">🛒</span>
+    <span class="particle">⭐</span>
+  </div>
+</div>
+
+
+<div id="transition" class="transition-overlay">
+  <div class="transition-content">
+    <div class="transition-logo">🛍️</div>
+    <h2 class="transition-title">Shop<em>ify</em></h2>
+    <div class="transition-spinner"></div>
+  </div>
+</div>
+
+
+<header>
+  <div class="header-inner">
+    <div class="header-spacer"></div>
+    <a href="index.html" class="logo">Shop<em>ify</em></a>
+    <div class="header-spacer"></div>
+  </div>
+</header>
+
+
+<main class="main-content">
+  
+  <div class="welcome-card" id="welcomeSection">
+    <h1>Welcome to Shopify</h1>
+    <p>Choose how you'd like to continue</p>
+    
+    <div class="welcome-options">
+      <a href="account.html" class="welcome-btn primary">Create Account</a>
+      <button class="welcome-btn secondary" onclick="showLoginForm()">Sign In</button>
+    </div>
+  </div>
+
+
+  <div class="login-card" id="loginSection">
+    <div class="login-header">
+      <h1>Welcome Back</h1>
+      <p>Sign in to continue shopping</p>
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="youandiyiee@example.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit" class="login-btn">Sign In</button>
+    </form>
+
+    <div class="form-footer">
+      <p>Don't have an account? <a href="account.html">Create one</a></p>
+    </div>
+    
+    <div class="back-choice" onclick="showWelcome()">
+      ← Back to choices
+    </div>
+  </div>
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+
+<script>
+ 
+  function showLoginForm() {
+    document.getElementById('welcomeSection').style.display = 'none';
+    document.getElementById('loginSection').classList.add('active');
+  }
+  
+  
+  function showWelcome() {
+    document.getElementById('loginSection').classList.remove('active');
+    document.getElementById('welcomeSection').style.display = 'block';
+  }
+  
+
+  (function() {
+    if (ShopNowDB.hasUser()) {
+      showLoginForm();
+    }
+  })();
+</script>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Shop<em>ify</em></a>
+      <p class="footer-tagline">Your premium shopping destination for quality products at affordable prices.</p>
+      <p class="footer-tagline">Learn more about us. The Developers</p>
+      <div class="footer-social">
+       <p>
+  Leah Pensader:<br>
+  <a href="https://www.facebook.com/leah.pensader" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/leiipen_onth3wall" target="_blank" rel="noopener noreferrer">Instagram</a>
+       </p>
+
+        <p>
+  Nico Jay Beltran:<br>
+  <a href="https://www.facebook.com/nicojay.beltran" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/njaykiee" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+
+        <p>
+  John Reyven Brosula:<br>
+  <a href="https://www.facebook.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="index.html">All Products</a>
+        <a href="index.html">New Arrivals</a>
+        <a href="index.html">Best Sellers</a>
+        <a href="index.html">Sale</a>
+      </div>
+      
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Shopify. All rights reserved.</p>
+    <p>Created by: Reyven, Leah, Nico</p>
+    <p>Created in: Visual Studio Powered by: GitHub</p>
+  </div>
+</footer>
+
+</body>
+</html>

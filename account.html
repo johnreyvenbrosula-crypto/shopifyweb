@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIGN UP PAGE</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      animation: fadeInUp 0.5s ease both;
+      background: 
+        radial-gradient(circle at 30% 70%, rgba(217,79,43,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(184,125,47,0.06) 0%, transparent 50%);
+    }
+    .signup-card {
+      width: 100%;
+      max-width: 450px;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+      padding: 48px 40px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 
+        0 20px 60px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+    .signup-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .signup-header h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .signup-header p {
+      color: var(--text2);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .form-group input {
+      width: 100%;
+      padding: 16px 18px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 1.1rem;
+      background: var(--bg);
+      color: var(--text);
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .form-row {
+      display: flex;
+      gap: 16px;
+    }
+    .form-row .form-group {
+      flex: 1;
+    }
+    .save-btn {
+      width: 100%;
+      padding: 18px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .save-btn:hover {
+      background: var(--primary-dark);
+    }
+    .form-footer {
+      text-align: center;
+      margin-top: 24px;
+      color: var(--text2);
+    }
+    .form-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+
+<div id="splash" class="splash-screen">
+  <div class="splash-ring"></div>
+  <div class="splash-content">
+    <div class="splash-logo">
+      <span class="splash-icon">🛍️</span>
+      <h1 class="splash-title">Shop<em>ify</em></h1>
+    </div>
+    <div class="splash-loader">
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+    </div>
+    <p class="splash-tagline">Loading your shopping experience...</p>
+  </div>
+  <div class="splash-particles">
+    <span class="particle">✨</span>
+    <span class="particle">🛍️</span>
+    <span class="particle">🎁</span>
+    <span class="particle">💫</span>
+    <span class="particle">🛒</span>
+    <span class="particle">⭐</span>
+  </div>
+</div>
+
+
+<div id="transition" class="transition-overlay">
+  <div class="transition-content">
+    <div class="transition-logo">🛍️</div>
+    <h2 class="transition-title">Shop<em>ify</em></h2>
+    <div class="transition-spinner"></div>
+  </div>
+</div>
+
+
+<header>
+  <div class="header-inner">
+    <div class="header-spacer"></div>
+    <a href="index.html" class="logo">Shop<em>ify</em></a>
+    <div class="header-spacer"></div>
+  </div>
+</header>
+
+
+<main class="main-content">
+  <div class="signup-card">
+    <div class="signup-header">
+      <h1>Create Your Account</h1>
+      <p>Join Shopify and start shopping</p>
+    </div>
+
+    <form id="signupForm" onsubmit="handleSignup(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" placeholder="John" required />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" placeholder="Doe" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="+63XXXXXXXXX" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Create a password" required />
+      </div>
+
+      <button type="submit" class="save-btn">Create Account</button>
+    </form>
+
+    <div class="form-footer">
+      <p>Already have an account? <a href="login.html">Sign In</a></p>
+    </div>
+  </div>
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+
+<script>
+ 
+  function handleSignup(event) {
+    event.preventDefault();
+    
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const password = document.getElementById('password').value;
+    
+    if (firstName && lastName && email && password) {
+      
+      ShopNowDB.createUser(email, firstName + ' ' + lastName, phone);
+      
+      showToast('🎉 Account created successfully!');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1000);
+    }
+  }
+</script>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Shop<em>ify</em></a>
+      <p class="footer-tagline">Your premium shopping destination for quality products at affordable prices.</p>
+      <div class="footer-social">
+        <p>
+  Leah Pensader:<br>
+  <a href="https://www.facebook.com/leah.pensader" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/leiipen_onth3wall" target="_blank" rel="noopener noreferrer">Instagram</a>
+       </p>
+
+        <p>
+  Nico Jay Beltran:<br>
+  <a href="https://www.facebook.com/nicojay.beltran" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/njaykiee" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+
+        <p>
+  John Reyven Brosula:<br>
+  <a href="https://www.facebook.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="index.html">All Products</a>
+        <a href="index.html">New Arrivals</a>
+        <a href="index.html">Best Sellers</a>
+        <a href="index.html">Sale</a>
+      </div>
+
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Shopify. All rights reserved.</p>
+    <p>Created by: Reyven, Leah, Nico</p>
+    <p>Created in: Visual Studio Powered by: GitHub</p>
+  </div>
+</footer>
+
+</body>
+</html>

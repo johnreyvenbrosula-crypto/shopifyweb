@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="shopnow-styles.css" />
+</head>
+<body>
+
+
+<div id="splash" class="splash-screen">
+  <div class="splash-ring"></div>
+  <div class="splash-content">
+    <div class="splash-logo">
+      <span class="splash-icon">🛍️</span>
+      <h1 class="splash-title">Shop<em>ify</em></h1>
+    </div>
+    <div class="splash-loader">
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+    </div>
+    <p class="splash-tagline">Your Page is Loading Please Wait</p>
+  </div>
+  <div class="splash-particles">
+    <span class="particle">✨</span>
+    <span class="particle">🛍️</span>
+    <span class="particle">🎁</span>
+    <span class="particle">💫</span>
+    <span class="particle">🛒</span>
+    <span class="particle">⭐</span>
+  </div>
+</div>
+
+
+<div id="transition" class="transition-overlay">
+  <div class="transition-content">
+    <div class="transition-logo">🛍️</div>
+    <h2 class="transition-title">Shop<em>ify</em></h2>
+    <div class="transition-spinner"></div>
+  </div>
+</div>
+
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Shop<em>ify</em></a>
+    <div class="search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search for anything…" autocomplete="off" />
+    </div>
+    <div class="header-actions">
+      <a href="track-order.html" class="icon-btn" title="Track Order" aria-label="Track Order">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+      </a>
+      <button class="icon-btn" id="accountBtn" onclick="goToAccount()" title="Account" aria-label="Account">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+      <button class="icon-btn" onclick="toggleCart()" title="Toggle cart" aria-label="Open cart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">✦ New Arrivals Daily</span>
+    <h1>Everything you need,<br><em>nasa amin kaya dito kana</em></h1>
+    <p>A Website Shop platform that has a lot of affordable things &amp; that you could buy here</p>
+    <button class="hero-btn" onclick="document.querySelector('.categories-section').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+  </div>
+</section>
+
+
+<section class="categories-section">
+  <div class="cat-pills" id="catPills"></div>
+</section>
+
+
+<div class="main">
+  <div class="products-col">
+    <div class="toolbar">
+      <span class="results-count" id="resultsCount"></span>
+      <select class="sort-select" id="sortSelect">
+        <option value="default">Featured</option>
+        <option value="price-asc">Price: Low → High</option>
+        <option value="price-desc">Price: High → Low</option>
+        <option value="rating">Top Rated</option>
+      </select>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </div>
+
+  <aside class="cart-col" id="cartCol" style="display:none">
+    <div class="cart-box">
+      <div class="cart-head">
+        <h3>Your Cart</h3>
+        <button class="cart-clear" onclick="clearCart()">Clear all</button>
+      </div>
+      <div class="cart-body" id="cartBody">
+        <div class="empty-state">
+          <div class="empty-icon">🛒</div>
+          <p>Your cart is empty.<br>Add something!</p>
+        </div>
+      </div>
+      <div class="cart-foot" id="cartFoot" style="display:none">
+        <div class="subtotal-row"><span>Subtotal</span><span id="subtotalEl">$0.00</span></div>
+        <div class="subtotal-row"><span>Shipping</span><span class="free-shipping">Free</span></div>
+        <div class="total-row"><span>Total</span><span id="totalEl">$0.00</span></div>
+        <button class="checkout-btn" onclick="checkout()">Proceed to Checkout →</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-body">
+      <div class="modal-cat" id="modalCat"></div>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <div class="modal-meta">
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-rating" id="modalRating"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-add-btn" id="modalAddBtn">Add to Cart</button>
+        <button class="modal-close-btn" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Shop<em>ify</em></a>
+      <p class="footer-tagline">Your premium shopping destination for quality products at affordable prices.</p>
+      <div class="footer-social">
+       <p>
+  Leah Pensader:<br>
+  <a href="https://www.facebook.com/leah.pensader" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/leiipen_onth3wall" target="_blank" rel="noopener noreferrer">Instagram</a>
+       </p>
+
+        <p>
+  Nico Jay Beltran:<br>
+  <a href="https://www.facebook.com/nicojay.beltran" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/njaykiee" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+
+        <p>
+  John Reyven Brosula:<br>
+  <a href="https://www.facebook.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="index.html">All Products</a>
+        <a href="index.html">New Arrivals</a>
+        <a href="index.html">Best Sellers</a>
+        <a href="index.html">Sale</a>
+      </div>
+
+    </div>
+  </div>
+  <div class="footer-bottom">
+   <p>&copy; 2026 Shopify. All rights reserved.</p>
+    <p>Created by: Reyven, Leah, Nico</p>
+    <p>Created in: Visual Studio Powered by: GitHub</p>
+  </div>
+</footer>
+
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

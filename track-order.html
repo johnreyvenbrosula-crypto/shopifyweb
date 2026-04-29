@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="track-styles.css" />
+</head>
+<body>
+
+
+<!-- Transition Overlay for Page Navigation -->
+<div id="transition" class="transition-overlay">
+  <div class="transition-content">
+    <div class="transition-logo">🛍️</div>
+    <h2 class="transition-title">Shop<em>ify</em></h2>
+    <div class="transition-spinner"></div>
+  </div>
+</div>
+
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back
+    </a>
+    <div class="header-spacer"></div>
+    <a href="index.html" class="logo">Shop<em>ify</em></a>
+  </div>
+</header>
+
+  
+<main class="track-main">
+  <div class="track-container">
+   
+  
+    <div class="order-search-box">
+      <h2>🔍 Track Your Order</h2>
+      <div class="search-form">
+        <input type="text" id="trackOrderInput" placeholder="Enter Order ID" />
+        <button class="track-btn primary" onclick="trackOrderById()">Track</button>
+      </div>
+    </div>
+
+   
+    <div class="success-message" id="successMessage">
+    </div>
+
+   
+    <div class="order-id-box">
+      <span class="order-id-label">Order ID</span>
+      <span class="order-id-value" id="orderId">#0-123456889</span>
+    </div>
+
+   
+    <div class="delivery-animation">
+      <div class="road">
+        <div class="truck" id="truck">
+          <div class="truck-body">🚚</div>
+          <div class="truck-route">📦 → 🏠</div>
+        </div>
+        <div class="road-lines"></div>
+      </div>
+      <div class="delivery-status" id="deliveryStatus">
+        <div class="status-step active" data-step="1">
+          <div class="step-icon">✅</div>
+          <div class="step-label">Order Placed</div>
+          <div class="step-time" id="time1">Just now</div>
+        </div>
+        <div class="status-step" data-step="2">
+          <div class="step-icon">📦</div>
+          <div class="step-label">Processing</div>
+          <div class="step-time" id="time2">---</div>
+        </div>
+        <div class="status-step" data-step="3">
+          <div class="step-icon">🚚</div>
+          <div class="step-label">Shipped</div>
+          <div class="step-time" id="time3">---</div>
+        </div>
+        <div class="status-step" data-step="4">
+          <div class="step-icon">📍</div>
+          <div class="step-label">Out for Delivery</div>
+          <div class="step-time" id="time4">---</div>
+        </div>
+        <div class="status-step" data-step="5">
+          <div class="step-icon">🏠</div>
+          <div class="step-label">Delivered</div>
+          <div class="step-time" id="time5">---</div>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="order-details">
+      <h2>📋 Order Details</h2>
+      <div class="details-grid">
+        <div class="detail-card">
+          <div class="detail-icon">📅</div>
+          <div class="detail-content">
+            <span class="detail-label">Order Date</span>
+            <span class="detail-value" id="orderDate">---</span>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">💰</div>
+          <div class="detail-content">
+            <span class="detail-label">Total Amount</span>
+            <span class="detail-value" id="orderTotal">$0.00</span>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">📦</div>
+          <div class="detail-content">
+            <span class="detail-label">Items</span>
+            <span class="detail-value" id="orderItems">0</span>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">📍</div>
+          <div class="detail-content">
+            <span class="detail-label">Shipping To</span>
+            <span class="detail-value" id="shippingAddress">Under Construction pato HAHA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="order-items-section">
+      <h2>🛍️ Items Ordered</h2>
+      <div class="items-list" id="itemsList">
+       
+      </div>
+    </div>
+
+    
+    <div class="estimated-delivery">
+      <div class="delivery-icon">⏰</div>
+      <div class="delivery-text">
+        <strong>Estimated Delivery</strong>
+        <span id="estimatedDate">kayo na mag tansya di ko pa na aayus to, wala pang database eh</span>
+      </div>
+    </div>
+
+    
+    <div class="track-actions">
+      <a href="index.html" class="track-btn primary">Continue Shopping</a>
+      <button class="track-btn secondary" onclick="window.print()">Print Receipt</button>
+    </div>
+  </div>
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Shop<em>ify</em></a>
+      <p class="footer-tagline">Your premium shopping destination for quality products at affordable prices.</p>
+      <div class="footer-social">
+        <p>
+  Leah Pensader:<br>
+  <a href="https://www.facebook.com/leah.pensader" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/leiipen_onth3wall" target="_blank" rel="noopener noreferrer">Instagram</a>
+       </p>
+
+        <p>
+  Nico Jay Beltran:<br>
+  <a href="https://www.facebook.com/nicojay.beltran" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/njaykiee" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+
+        <p>
+  John Reyven Brosula:<br>
+  <a href="https://www.facebook.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+  <a href="https://www.instagram.com/jhnryvn.h" target="_blank" rel="noopener noreferrer">Instagram</a>
+</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="index.html">All Products</a>
+        <a href="index.html">New Arrivals</a>
+        <a href="index.html">Best Sellers</a>
+        <a href="index.html">Sale</a>
+      </div>
+
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Shopify. All rights reserved.</p>
+    <p>Created by: Reyven, Leah, Nico</p>
+    <p>Created in: Visual Studio Powered by: GitHub</p>
+  </div>
+</footer>
+
+
+<script src="data.js"></script>
+<script>
+  console.log('track-order.html: ShopNowDB loaded:', typeof ShopNowDB !== 'undefined');
+  console.log('URL:', window.location.href);
+  console.log('Order param:', new URLSearchParams(window.location.search).get('order'));
+</script>
+<script src="app.js"></script>
+<script src="track.js"></script>
+</body>
+</html>
