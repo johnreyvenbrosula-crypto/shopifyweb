@@ -184,7 +184,7 @@
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Create a password" required />
+        <input type="password" id="password" placeholder="Create a password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).(8,)" title="Password Must Contain atleast 8 characters, include uppercase, lowercase, and number." required />
       </div>
 
       <button type="submit" class="save-btn">Create Account</button>
