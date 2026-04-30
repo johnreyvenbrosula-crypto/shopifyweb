@@ -1003,7 +1003,8 @@ header {
 
 .card-body.open {
   padding: 20px;
-  max-height: 400px;
+  max-height: 700px;
+  overflow-y: auto;
 }
 
 /* PROFILE SECTION */
